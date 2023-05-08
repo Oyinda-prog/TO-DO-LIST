@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <button id="googleLogin">Log in using google</button>
+  <div id="display"></div>
+  <script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-app.js";
+  import { GoogleAuthProvider,getAuth, signInWithPopup,sendEmailVerification  } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-auth.js";
+
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+  
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyAq0npqjAfSJfJ432KO-FesvHh5dno4iCE",
+    authDomain: "todo-project-fc311.firebaseapp.com",
+    projectId: "todo-project-fc311",
+    storageBucket: "todo-project-fc311.appspot.com",
+    messagingSenderId: "792194482531",
+    appId: "1:792194482531:web:450675a0fb4b4930549356"
+  };
+  
+  // Initialize Firebase
+  const provider = new GoogleAuthProvider();
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth();
+  document.getElementById("googleLogin").addEventListener("click",()=>{
+    signInWithPopup(auth, provider)
+    .then((result)=>{
+      let name = result.user.displayName
+ display.innerHTML +=  `
+ <h1>
+     ${name}
+  </h1>`
+  sendEmailVerification(auth.currentUser)
+  .then(() => {
+   console.log("Email sent")
+  })
+.catch((err)=>{
+  console.log(err)
+})
+window.location.href ="dashboard.html"
+    })
+    
+    .catch((err)=>{
+   console.log(err)
+    })
+  })
+</script>
+</body>
+</html>
